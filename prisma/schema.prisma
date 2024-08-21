@@ -44,7 +44,7 @@ model Post {
   title            String
   articleContent   Json
   smallDescription String
-  image            String?
+  image            String
   slug             String   @unique
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt

@@ -1,5 +1,5 @@
 "use client";
-import { CreatePostAction } from "@/app/actions";
+import { CreatePostAction, EditPostActions } from "@/app/actions";
 import TailwindEditor from "@/app/components/dashboard/EditorWrapper";
 import { UploadDropzone } from "@/app/utils/uploadthingComponents";
 import { PostSchema } from "@/app/utils/zodSchema";
@@ -25,16 +25,26 @@ import { toast } from "sonner";
 import slugify from "react-slugify";
 import { SubmitButton } from "@/app/components/dashboard/SubmitButtons";
 
-export default function ArticleCreationRoute({
-  params,
-}: {
-  params: { siteId: string };
-}) {
-  const [imageUrl, setImageUrl] = useState<undefined | string>(undefined);
-  const [value, setValue] = useState<JSONContent | undefined>(undefined);
-  const [title, setTitle] = useState<string | undefined>(undefined);
-  const [slug, setSlugValue] = useState<string | undefined>(undefined);
-  const [lastResult, action] = useActionState(CreatePostAction, undefined);
+interface iAppProps {
+  data: {
+    title: string;
+    slug: string;
+    smallDescription: string;
+    articleContent: any;
+    id: string;
+    image: string;
+  };
+  siteId: string;
+}
+
+export function EditArticleForm({ data, siteId }: iAppProps) {
+  const [imageUrl, setImageUrl] = useState<undefined | string>(data.image);
+  const [value, setValue] = useState<JSONContent | undefined>(
+    data.articleContent
+  );
+  const [title, setTitle] = useState<string | undefined>(data.title);
+  const [slug, setSlugValue] = useState<string | undefined>(data.slug);
+  const [lastResult, action] = useActionState(EditPostActions, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
@@ -43,7 +53,6 @@ export default function ArticleCreationRoute({
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
-
   function handleSlugGeneration() {
     const titleInput = title;
     if (titleInput?.length === 0 || titleInput === undefined) {
@@ -53,18 +62,9 @@ export default function ArticleCreationRoute({
 
     return toast.success("Slug generated successfully");
   }
-
   return (
     <>
-      <div className="flex items-center">
-        <Button className="mr-3" size="icon" variant="outline" asChild>
-          <Link href={`/dashboard/sites/${params.siteId}`}>
-            <ArrowLeft className="size-4" />
-          </Link>
-        </Button>
-        <h1 className="text-xl font-semibold">Create Article</h1>
-      </div>
-      <Card>
+      <Card className="mt-5">
         <CardHeader>
           <CardTitle>Article Details</CardTitle>
           <CardDescription>
@@ -77,7 +77,8 @@ export default function ArticleCreationRoute({
             id={form.id}
             onSubmit={form.onSubmit}
             action={action}>
-            <input type="hidden" name="siteId" value={params.siteId} />
+            <input type="hidden" name="articleId" value={data.id} />
+            <input type="hidden" name="siteId" value={siteId} />
             <div className="flex flex-col gap-2">
               <Label>Title</Label>
               <Input
@@ -115,7 +116,7 @@ export default function ArticleCreationRoute({
               <Textarea
                 key={fields.smallDescription.key}
                 name={fields.smallDescription.name}
-                defaultValue={fields.smallDescription.initialValue}
+                defaultValue={data.smallDescription}
                 placeholder="Small Description for you blog article..."
               />
               <p className="text-red-500 text-sm">
@@ -168,7 +169,7 @@ export default function ArticleCreationRoute({
                 {fields.articleContent.errors}
               </p>
             </div>
-            <SubmitButton text="Create Article" />
+            <SubmitButton text="Edit Article" />
           </form>
         </CardContent>
       </Card>
