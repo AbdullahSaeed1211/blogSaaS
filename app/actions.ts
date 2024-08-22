@@ -2,15 +2,25 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { parseWithZod } from "@conform-to/zod";
-import { PostSchema, siteSchema } from "./utils/zodSchema";
+import { PostSchema, siteCreationSchema, siteSchema } from "./utils/zodSchema";
 import prisma from "./utils/db";
 import { requireUser } from "./utils/requireUser";
 
 export async function CreateSiteAction(prevState: any, formData: FormData) {
     const user = await requireUser();
     //server validation for site creation
-    const submission = parseWithZod(formData, {
-        schema: siteSchema,
+    const submission = await parseWithZod(formData, {
+        schema: siteCreationSchema({
+            async isSubdirectoryUnique() {
+                const existingSubdirectory = await prisma.site.findUnique({
+                    where: {
+                        subdirectory: formData.get('subdirectory') as string,
+                    }
+                });
+                return !existingSubdirectory;
+            }
+        }),
+        async: true,
     });
     if (submission.status !== 'success') {
         return submission.reply();
@@ -24,6 +34,9 @@ export async function CreateSiteAction(prevState: any, formData: FormData) {
             userId: user.id,
         }
     });
+
+
+
     return redirect("/dashboard/sites");
 
 }
@@ -55,7 +68,7 @@ export async function CreatePostAction(prevState: any, formData: FormData) {
 }
 
 //edit post
-export async function EditPostActions(prevState:any,formData: FormData) {
+export async function EditPostActions(prevState: any, formData: FormData) {
     const user = await requireUser();
     const submission = parseWithZod(formData, {
         schema: PostSchema,
@@ -89,4 +102,31 @@ export async function DeletePostAction(formData: FormData) {
         }
     });
     return redirect(`/dashboard/sites/${formData.get('siteId')}`);
+}
+
+// edit site Image
+export async function UpdateSiteImage(formData: FormData) {
+    const user = await requireUser();
+    const data = await prisma.site.update({
+        where: {
+            userId: user.id,
+            id: formData.get('siteId') as string,
+        },
+        data: {
+            imageUrl: formData.get('imageUrl') as string,
+        }
+    });
+    return redirect(`/dashboard/sites/${formData.get('siteId')}`);
+}
+
+// delete site
+export async function DeleteSiteAction(formData: FormData) {
+    const user = await requireUser();
+    const data = await prisma.site.delete({
+        where: {
+            userId: user.id,
+            id: formData.get('siteId') as string,
+        }
+    });
+    return redirect(`/dashboard/sites`);
 }
