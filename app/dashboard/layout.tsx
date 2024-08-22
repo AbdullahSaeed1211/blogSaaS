@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import logo from "@/public/logo.svg";
 import Image from "next/image";
 import DashboardItems from "../components/dashboard/DashboardItems";
-import { CircleUser, DollarSign, Globe, Home } from "lucide-react";
+import { CircleUser, DollarSign, Globe, Home, StickyNote } from "lucide-react";
 import { ThemeToggle } from "../components/dashboard/ThemeToggle";
 import {
   DropdownMenu,
@@ -29,6 +29,11 @@ export const navLinks = [
     name: "Pricing",
     href: "/dashboard/pricing",
     icon: DollarSign,
+  },
+  {
+    name: "Launch Pages",
+    href: "/",
+    icon: StickyNote,
   },
 ];
 

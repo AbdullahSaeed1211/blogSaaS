@@ -54,7 +54,7 @@ export default async function sitesPage() {
           href={`/dashboard/sites/new`}
         />
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {data.map((item) => (
             <Card key={item.id}>
               <Image
@@ -65,8 +65,10 @@ export default async function sitesPage() {
                 height={200}
               />
               <CardHeader>
-                <CardTitle>{item.name}</CardTitle>
-                <CardDescription>{item.description}</CardDescription>
+                <CardTitle className="truncate">{item.name}</CardTitle>
+                <CardDescription className="line-clamp-3">
+                  {item.description}
+                </CardDescription>
               </CardHeader>
               <CardFooter>
                 <Button className="w-full" asChild>
