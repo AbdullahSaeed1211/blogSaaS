@@ -32,7 +32,7 @@ export const navLinks = [
   },
   {
     name: "Launch Pages",
-    href: "/",
+    href: "/dashboard/launch-pages",
     icon: StickyNote,
   },
 ];

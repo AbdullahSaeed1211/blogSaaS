@@ -79,7 +79,7 @@ export default async function BlogIndexPage({
             <CardFooter>
               <Button className="w-full" asChild>
                 <Link href={`/blog/${params.name}/${item.slug}`}>
-                  Read Articles
+                  Read Article
                 </Link>
               </Button>
             </CardFooter>
