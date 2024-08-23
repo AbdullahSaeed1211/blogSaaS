@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { redirect } from "next/navigation";
 
-export async function getData(userId: string) {
+async function getData(userId: string) {
   const data = await prisma.subscription.findUnique({
     where: {
       userId: userId,
