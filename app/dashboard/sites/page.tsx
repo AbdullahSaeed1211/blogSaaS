@@ -6,7 +6,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -73,7 +72,7 @@ export default async function sitesPage() {
               <CardFooter>
                 <Button className="w-full" asChild>
                   <Link href={`/dashboard/sites/${item.id}`}>
-                    View Articles
+                    Manage Articles
                   </Link>
                 </Button>
               </CardFooter>

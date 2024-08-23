@@ -63,7 +63,7 @@ export default async function dashboardIndexPage() {
             <CardFooter>
               <Button className="w-full" asChild>
                 <Link href={`/dashboard/sites/${item.id}`}>
-                  View Articles
+                  Manage Articles
                 </Link>
               </Button>
             </CardFooter>
