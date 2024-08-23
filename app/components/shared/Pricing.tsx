@@ -57,7 +57,7 @@ export function PricingTable() {
         <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
           Pricing Plans for everyone and every budget!
         </h1>
-        <p className="max-w-2xl mx-auto text-center leading-tight mt-6 text-lg text-muted-foreground">
+        <p className="max-w-2xl mx-auto text-center leading-tight mt-6 mb-3 md:mt-6 text-lg text-muted-foreground">
           Choose the plan that fits your needs. Try it out for free!
         </p>
       </div>
