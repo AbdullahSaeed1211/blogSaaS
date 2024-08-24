@@ -68,7 +68,7 @@ export default function ArticleCreationRoute({
         <CardHeader>
           <CardTitle>Article Details</CardTitle>
           <CardDescription>
-            Lorem ipsum dolor sit amet consectetur.
+            Create your article here ...
           </CardDescription>
         </CardHeader>
         <CardContent>

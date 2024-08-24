@@ -41,7 +41,7 @@ export default async function sitesPage() {
         <Button asChild>
           <Link href={"/dashboard/sites/new"}>
             <PlusCircle className="mr-2 size-4" />
-            Create Sites
+            Create Site
           </Link>
         </Button>
       </div>

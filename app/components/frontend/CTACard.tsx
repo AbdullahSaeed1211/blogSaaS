@@ -18,13 +18,13 @@ export default function Component() {
                 }}
               ></div>
               <div className="relative px-6 py-12 md:px-10 md:py-16 text-center">
-                <span className="inline-block text-sm font-semibold tracking-wider text-primary-green dark:text-white bg-white/80 dark:bg-primary-green/30 px-4 py-2 rounded-full mb-6 shadow-sm">
+                <span className="inline-block text-sm font-semibold tracking-wider text-primary  dark:text-white bg-white/80 dark:bg-primary-green/30 px-4 py-2 rounded-full mb-6 shadow-sm">
                   Get Started Today!
                 </span>
 
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-gray-900 dark:text-gray-100 mb-4">
                   Setup your Blog{" "}
-                  <span className="block text-primary dark:text-primary mt-2 drop-shadow-sm">
+                  <span className="block text-primary dark:text-primary-green mt-2 drop-shadow-sm">
                     in Minutes!
                   </span>
                 </h2>
