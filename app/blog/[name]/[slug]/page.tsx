@@ -8,6 +8,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JSONContent } from "novel";
 import ShareDropdown from "@/app/components/dashboard/ShareDropdown";
+import { calculateReadingTime } from "@/app/utils/readingTime";
 
 async function getdata(slug: string) {
   const data = await prisma.post.findUnique({
@@ -36,7 +37,7 @@ export default async function SlugRoute({
   params: { slug: string; name: string };
 }) {
   const data = await getdata(params.slug);
-  const stats = readingTime(data.articleContent as string);
+  const stats = calculateReadingTime(data.articleContent as string); // Calculate reading time
   const postUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${params.name}/${params.slug}`; // Base URL for sharing
   return (
     <>
@@ -64,7 +65,7 @@ export default async function SlugRoute({
       <div className="flex flex-col items-center justify-center mb-10">
         <div className="m-auto w-full text-center md:w-7/12">
           <p className="m-auto my-3 w-10/12 text-sm font-light text-muted-foreground md:text-base">
-            {stats.text} ·
+            {stats} ·
             {new Intl.DateTimeFormat("en-US", {
               dateStyle: "medium",
             }).format(data.createdAt)}
