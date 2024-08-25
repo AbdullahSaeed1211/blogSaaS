@@ -65,7 +65,8 @@ export default async function SlugRoute({
       <div className="flex flex-col items-center justify-center mb-10">
         <div className="m-auto w-full text-center md:w-7/12">
           <p className="m-auto my-3 w-10/12 text-sm font-light text-muted-foreground md:text-base">
-            {stats} ·
+            {stats} 
+            <span className="size-1 text-muted-foreground rounded-full mx-1"/>
             {new Intl.DateTimeFormat("en-US", {
               dateStyle: "medium",
             }).format(data.createdAt)}
