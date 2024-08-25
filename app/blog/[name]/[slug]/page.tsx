@@ -7,6 +7,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JSONContent } from "novel";
 
+
+
 async function getdata(slug: string) {
   const data = await prisma.post.findUnique({
     where: {
