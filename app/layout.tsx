@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "./components/dashboard/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 
 const geistSans = localFont({
@@ -26,6 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+      <GoogleAnalytics />
+      </head>
       <body className={`${geistSans.className} ${geistMono.className} font-sans`}>
       <ThemeProvider
             attribute="class"
